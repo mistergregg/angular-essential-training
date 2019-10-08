@@ -7,15 +7,28 @@ import { MediaItemService } from './media-item.service';
   styleUrls: ['./media-item-list.component.css']
 })
 export class MediaItemListComponent implements OnInit {
-  mediaItems;
+  medium = '';
+  mediaItems: MediaItem[];
 
   constructor(private mediaItemService: MediaItemService) {}
 
   ngOnInit() {
-    this.mediaItems = this.mediaItemService.get();
+    this.mediaItemService.get()
+    .subscribe(mediaItems => {
+      this.mediaItems = mediaItems;
+    });
   }
 
   onMediaItemDelete(mediaItem) {
     this.mediaItemService.delete(mediaItem);
+  }
+
+  getMediaItems(medium: string)
+  {
+    this.medium = medium;
+    this.mediaItemService.get(medium)
+    .subscribe(mediaItems => {
+      this.mediaItems = mediaItems;
+    });
   }
 }
