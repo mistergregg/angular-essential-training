@@ -70,10 +70,7 @@ export class MediaItemService {
   }
 
   delete(mediaItem) {
-    const index = this.mediaItems.indexOf(mediaItem);
-    if (index >= 0) {
-      this.mediaItems.splice(index, 1);
-    }
+    return this.http.delete('mediaitems/${mediaItem.id}');
   }
 }
 
